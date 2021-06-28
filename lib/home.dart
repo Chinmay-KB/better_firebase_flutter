@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_easyaccess/firebase_service.dart';
 import 'package:firebase_easyaccess/user.dart';
 import 'package:flutter/material.dart';
@@ -48,9 +47,11 @@ class _HomeState extends State<Home> {
                                 .data!.people.friends[0].achievements[0].type),
                             ElevatedButton(
                               onPressed: () async {
+                                User? user = snapshot.data;
+                                user!.people.friends[0].achievements[0].type =
+                                    Random().nextInt(1000).toString();
                                 await service.updateDataTheBetterWay(
-                                    'ENYMl6A76UTENuQ9fnOi',
-                                    Random().nextInt(1000).toString());
+                                    'ENYMl6A76UTENuQ9fnOi', user);
                                 setState(() {});
                               },
                               child: Icon(Icons.refresh),

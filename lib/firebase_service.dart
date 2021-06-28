@@ -26,7 +26,7 @@ class FirestoreService {
     return _data;
   }
 
-  Future<void> updateDataTheBetterWay(String document, String data) async {
+  Future<void> updateDataTheBetterWay(String document, User user) async {
     final userRef = firestoreInstance
         .collection('users')
         .doc(document)
@@ -34,8 +34,6 @@ class FirestoreService {
             fromFirestore: (snapshot, _) =>
                 userFromJson(json.encode(snapshot.data())),
             toFirestore: (model, _) => model.toJson());
-    User? user = (await userRef.get()).data();
-    user!.people.friends[0].achievements[0].type = data;
     await userRef.set(user);
   }
 
